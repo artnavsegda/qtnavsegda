@@ -1,0 +1,2 @@
+# qtnavsegda
+QT playground projects
