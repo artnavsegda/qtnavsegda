@@ -1,24 +1,39 @@
 import Felgo 3.0
-import QtQuick 2.0
 
 App {
-    // You get free licenseKeys from https://felgo.com/licenseKey
-    // With a licenseKey you can:
-    //  * Publish your games & apps for the app stores
-    //  * Remove the Felgo Splash Screen or set a custom one (available with the Pro Licenses)
-    //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
-    //licenseKey: "<generate one from https://felgo.com/licenseKey>"
+  NavigationStack {
 
-    NavigationStack {
+    Page {
+      title: "Swipe-able List"
 
-        Page {
-            title: qsTr("Main Page")
+      AppListView {
+        anchors.fill: parent
+        model: [
+          { text: "Item 1" },
+          { text: "Item 2" },
+          { text: "Item 3" }
+        ]
 
-            Image {
-                source: "../assets/felgo-logo.png"
-                anchors.centerIn: parent
+        delegate: SwipeOptionsContainer {
+          id: container
+
+          // the swipe container uses the height of the list item
+          height: listItem.height
+          SimpleRow { id: listItem }
+
+          // set an item that shows when swiping to the right
+          leftOption: SwipeButton {
+            icon: IconType.gear
+            height: parent.height
+            onClicked: {
+              listItem.text = "Option clicked"
+              container.hideOptions() // hide button again after click
             }
+          }
         }
 
+      } // AppListView
     }
+
+  }
 }
