@@ -38,6 +38,14 @@ App {
               container.hideOptions() // hide button again after click
             }
           }
+          rightOption: SwipeButton {
+            icon: IconType.gear
+            height: parent.height
+            onClicked: {
+              listItem.text = "Option clicked"
+              container.hideOptions() // hide button again after click
+            }
+          }
         }
 
       } // AppListView
