@@ -10,6 +10,7 @@ App {
         url: "ws://echo.websocket.org"
         onTextMessageReceived: {
             messageBox.text = "Received message: " + message
+            console.log("Received message: " + message)
         }
         onStatusChanged: if (socket.status == WebSocket.Error) {
                              console.log("Error: " + socket.errorString)
