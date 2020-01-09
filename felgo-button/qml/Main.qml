@@ -32,7 +32,9 @@ App {
             text: "Button"
             onClicked: {
                 console.log("Sending message: Hello World");
-                socket.sendTextMessage("Hello World");
+                //socket.sendTextMessage("Hello World");
+                socket.sendTextMessage("PUSH[1]");
+                socket.sendTextMessage("RELEASE[1]");
             }
             anchors.horizontalCenter: parent.horizontalCenter
           }
