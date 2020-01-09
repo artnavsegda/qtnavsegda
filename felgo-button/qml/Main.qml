@@ -7,7 +7,7 @@ App {
 
     WebSocket {
         id: socket
-        url: "ws://echo.websocket.org"
+        url: "ws://192.168.88.20:8080"
         onTextMessageReceived: {
             messageBox.text = "Received message: " + message
             console.log("Received message: " + message)
@@ -15,7 +15,7 @@ App {
         onStatusChanged: if (socket.status == WebSocket.Error) {
                              console.log("Error: " + socket.errorString)
                          } else if (socket.status == WebSocket.Open) {
-                             socket.sendTextMessage("Hello World")
+                             //socket.sendTextMessage("Hello World")
                              console.log("Good")
                          } else if (socket.status == WebSocket.Closed) {
                              messageBox.text += "\nSocket closed"
@@ -30,12 +30,15 @@ App {
           AppButton {
             flat: false
             text: "Button"
-            onClicked: socket.sendTextMessage("Hello Again");
+            onClicked: {
+                console.log("Sending message: Hello World");
+                socket.sendTextMessage("Hello World");
+            }
             anchors.horizontalCenter: parent.horizontalCenter
           }
           AppText {
             id: messageBox
-            text: socket.status == WebSocket.Open ? qsTr("Sending...") : qsTr("Welcome!")
+            text: socket.status == WebSocket.Open ? qsTr("Websocket open") : qsTr("Websocket closed")
           }
     }
   }
