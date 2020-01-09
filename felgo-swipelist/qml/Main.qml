@@ -9,9 +9,17 @@ App {
       AppListView {
         anchors.fill: parent
         model: [
-          { text: "Item 1" },
-          { text: "Item 2" },
-          { text: "Item 3" }
+          {
+            text: "Apple",
+            detailText: "A delicious fruit with round shape",
+            icon: IconType.apple
+          },
+
+          {
+            text: "Beer",
+            detailText: "A delicous drink",
+            icon: IconType.beer
+          }
         ]
 
         delegate: SwipeOptionsContainer {
