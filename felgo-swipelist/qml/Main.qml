@@ -40,10 +40,26 @@ App {
             }
           }
           rightOption: Row {
-              spacing: 2
-              Rectangle { color: "red"; width: 50; height: 50 }
-              Rectangle { color: "green"; width: 20; height: 50 }
-              Rectangle { color: "blue"; width: 50; height: 20 }
+              //spacing: 2
+              height: parent.height
+              //Rectangle { color: "red"; width: 50; height: 50 }
+              SwipeButton {
+                          backgroundColor : "red"
+                          icon: IconType.remove
+                          height: parent.height
+                          onClicked: {
+                            listItem.text = "Option clicked"
+                            container.hideOptions() // hide button again after click
+                          }
+              }
+              SwipeButton {
+                          icon: IconType.gear
+                          height: parent.height
+                          onClicked: {
+                            listItem.text = "Option clicked"
+                            container.hideOptions() // hide button again after click
+                          }
+              }
           }
         }
 
