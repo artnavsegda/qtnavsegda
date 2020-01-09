@@ -1,4 +1,5 @@
 import Felgo 3.0
+import QtQuick 2.11
 
 App {
   NavigationStack {
@@ -38,13 +39,11 @@ App {
               container.hideOptions() // hide button again after click
             }
           }
-          rightOption: SwipeButton {
-            icon: IconType.gear
-            height: parent.height
-            onClicked: {
-              listItem.text = "Option clicked"
-              container.hideOptions() // hide button again after click
-            }
+          rightOption: Row {
+              spacing: 2
+              Rectangle { color: "red"; width: 50; height: 50 }
+              Rectangle { color: "green"; width: 20; height: 50 }
+              Rectangle { color: "blue"; width: 50; height: 20 }
           }
         }
 
