@@ -2,8 +2,14 @@ import Felgo 3.0
 import QtQuick 2.11
 
 App {
+    id: app
+
+    property int count: 0
+
+
   NavigationStack {
     Page {
+      id: mainPage
       title: "Офис"
 
      AppListView {
@@ -25,7 +31,10 @@ App {
           SimpleRow {
           id: listItem
             text: name
-            onSelected: console.log("Clicked Item #"+index)
+            onSelected: {
+                console.log("Clicked Item #"+index)
+                mainPage.navigationStack.push(counterPageComponent)
+            }
             iconSource: logo
 //            detailText: description
           }
@@ -69,5 +78,32 @@ App {
        section.delegate: SimpleSection { }
      }
     }
+
+    Component {
+      id: counterPageComponent
+      Page {
+        title: "Change Count"
+        property Page target: null
+
+        Column {
+          anchors.centerIn: parent
+
+          // buttons to increase or decrease the count, which is displayed on the main page
+          AppButton {
+            text: "Count ++"
+            onClicked: {
+              app.count++
+            }
+          }
+          AppButton {
+            text: "Count --"
+            onClicked: {
+              app.count--
+            }
+          }
+        }
+      }
+    }
+
   }
 }
