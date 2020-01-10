@@ -25,6 +25,7 @@ App {
           SimpleRow {
           id: listItem
             text: name
+            onSelected: console.log("Clicked Item #"+index)
 //            detailText: description
           }
 
@@ -46,7 +47,8 @@ App {
                           icon: IconType.remove
                           height: parent.height
                           onClicked: {
-                            listItem.text = "Option clicked"
+                            //listItem.text = "Option clicked"
+                            console.log("Clicked Option A #"+index)
                             container.hideOptions() // hide button again after click
                           }
               }
@@ -54,7 +56,8 @@ App {
                           icon: IconType.gear
                           height: parent.height
                           onClicked: {
-                            listItem.text = "Option clicked"
+                            //listItem.text = "Option clicked"
+                            console.log("Clicked Option B #"+index)
                             container.hideOptions() // hide button again after click
                           }
               }
