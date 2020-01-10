@@ -82,7 +82,27 @@ App {
     Component {
       id: counterPageComponent
       Page {
+        id: page
         title: "Change Count"
+
+        titleItem: Row {
+          spacing: dp(6)
+
+          Icon {
+            icon: IconType.camera
+          }
+
+          AppText {
+            id: titleText
+            anchors.verticalCenter: parent.verticalCenter
+            text: page.title
+            font.bold: true
+            font.family: Theme.boldFont.name
+            font.pixelSize: dp(Theme.navigationBar.titleTextSize)
+            color: "orange"
+          }
+        } // titleItem
+
         property Page target: null
 
         Column {
