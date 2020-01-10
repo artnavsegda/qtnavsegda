@@ -8,7 +8,7 @@ App {
 
      AppListView {
        model: ListModel {
-         ListElement { type: "Переговорная"; name: "Свет" }
+         ListElement { type: "Переговорная"; name: "Свет"; description: "light" }
          ListElement { type: "Переговорная"; name: "Медиа" }
          ListElement { type: "Переговорная"; name: "Климат" }
          ListElement { type: "Переговорная"; name: "Шторы" }
@@ -25,6 +25,7 @@ App {
           SimpleRow {
           id: listItem
             text: name
+//            detailText: description
           }
 
           // set an item that shows when swiping to the right
