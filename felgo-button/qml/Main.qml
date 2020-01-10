@@ -27,10 +27,8 @@ App {
          anchors.centerIn: parent
 
          // text to show the current count and button to push the second page
-          AppButton {
-            flat: false
-            text: "Button"
-            onClicked: {
+          AppSwitch {
+            onToggled: {
                 console.log("Sending message: Hello World");
                 //socket.sendTextMessage("Hello World");
                 socket.sendTextMessage("PUSH[1]");

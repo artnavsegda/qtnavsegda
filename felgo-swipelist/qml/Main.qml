@@ -13,6 +13,7 @@ App {
       title: "Офис"
 
      AppListView {
+       id: myListView
        model: ListModel {
          ListElement { type: "Переговорная"; name: "Свет"; description: "light"; logo: "" }
          ListElement { type: "Переговорная"; name: "Медиа"; logo: "" }
@@ -89,7 +90,7 @@ App {
             id: socket
             url: "ws://192.168.88.20:8080"
             onTextMessageReceived: {
-                messageBox.text = "Received message: " + message
+                //messageBox.text = "Received message: " + message
                 console.log("Received message: " + message)
             }
             onStatusChanged: if (socket.status == WebSocket.Error) {
@@ -98,7 +99,7 @@ App {
                                  //socket.sendTextMessage("Hello World")
                                  console.log("Good")
                              } else if (socket.status == WebSocket.Closed) {
-                                 messageBox.text += "\nSocket closed"
+                                 //messageBox.text += "\nSocket closed"
                              }
             active: true
         }
@@ -123,26 +124,81 @@ App {
 
         property Page target: null
 
-        Column {
-             anchors.centerIn: parent
 
-             // text to show the current count and button to push the second page
-              AppButton {
-                flat: false
-                text: "Button"
-                onClicked: {
-                    console.log("Sending message: Hello World");
-                    //socket.sendTextMessage("Hello World");
-                    socket.sendTextMessage("PUSH[1]");
-                    socket.sendTextMessage("RELEASE[1]");
-                }
+        AppListView {
+          id: myListView
+
+          // UI properties
+          x: dp(10) // left margin
+          y: dp(10) // top margin
+          property real widthDay: dp(90)
+          property real widthTempMaxMin: dp(60)
+          property real widthRain: dp(40)
+          property real itemRowSpacing: dp(20)
+          spacing: dp(5) // vertical spacing between list items/rows/delegates
+
+          // the model will usually come from a web server, copy it here for faster development & testing
+          model: [
+            {day: "Monday",    tempMax: 21, tempMin: 15, rainProbability: 0.8, rainAmount: 3.153},
+            {day: "Tuesday",   tempMax: 24, tempMin: 15, rainProbability: 0.2, rainAmount: 0.13},
+            {day: "Wednesday", tempMax: 26, tempMin: 16, rainProbability: 0.01, rainAmount: 0.21},
+            {day: "Thursday",  tempMax: 32, tempMin: 21, rainProbability: 0, rainAmount: 0},
+            {day: "Friday",    tempMax: 28, tempMin: 20, rainProbability: 0, rainAmount: 0},
+            {day: "Saturday",  tempMax: 26, tempMin: 19, rainProbability: 0, rainAmount: 0},
+            {day: "Sunday",    tempMax: 25, tempMin: 19, rainProbability: 0, rainAmount: 0}
+          ]
+
+          delegate: Row {
+            id: dailyWeatherDelegate
+            spacing: myListView.itemRowSpacing
+
+            AppText {
+              // if it is the first entry, display "Today", if it is the second, display "Tomorrow"
+              // otherwise display the day property from the model
+              text: index === 0 ? "Today" :
+                    index === 1 ? "Tomorrow" :
+                    modelData.day
+
+              // make all days the same width
+              width: myListView.widthDay
+              anchors.verticalCenter: parent.verticalCenter
+            }
+
+            AppText {
+              text: modelData.tempMax + "°/" + modelData.tempMin + "°"
+              horizontalAlignment: Text.AlignHCenter
+              width: myListView.widthTempMaxMin
+              anchors.verticalCenter: parent.verticalCenter
+            }
+
+            Column {
+              width: myListView.widthRain
+              anchors.verticalCenter: parent.verticalCenter
+              AppText {
+                text: Math.round(modelData.rainAmount*10)/10 + "l" // round to 1 decimal
+                fontSize: 18
                 anchors.horizontalCenter: parent.horizontalCenter
               }
               AppText {
-                id: messageBox
-                text: socket.status == WebSocket.Open ? qsTr("Websocket open") : qsTr("Websocket closed")
+                id: precipProbability
+                text: Math.round(modelData.rainProbability * 1000)/10 + "%" // round percent to 1 decimal
+                fontSize: 12
+                anchors.horizontalCenter: parent.horizontalCenter
               }
-        }
+            }
+
+            AppSwitch {
+              anchors.verticalCenter: parent.verticalCenter
+              onToggled: {
+                  console.log("Sending message: Hello World");
+                  //socket.sendTextMessage("Hello World");
+                  socket.sendTextMessage("PUSH[1]");
+                  socket.sendTextMessage("RELEASE[1]");
+              }
+            }
+
+          }// dailyWeatherDelegate
+        }//ListView
       }
     }
 
