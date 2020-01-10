@@ -4,13 +4,17 @@ import QtQuick 2.11
 App {
   NavigationStack {
     Page {
-      title: "Basic List Example"
+      title: "Офис"
 
      AppListView {
        model: ListModel {
-         ListElement { type: "Fruits"; name: "Banana" }
-         ListElement { type: "Fruits"; name: "Apple" }
-         ListElement { type: "Vegetables"; name: "Potato" }
+         ListElement { type: "Переговорная"; name: "Свет" }
+         ListElement { type: "Переговорная"; name: "Медиа" }
+         ListElement { type: "Переговорная"; name: "Климат" }
+         ListElement { type: "Переговорная"; name: "Шторы" }
+         ListElement { type: "Склад"; name: "Свет" }
+         ListElement { type: "Склад"; name: "Медиа" }
+         ListElement { type: "Склад"; name: "Шторы" }
        }
 
         delegate: SwipeOptionsContainer {
