@@ -8,13 +8,13 @@ App {
 
      AppListView {
        model: ListModel {
-         ListElement { type: "Переговорная"; name: "Свет"; description: "light" }
-         ListElement { type: "Переговорная"; name: "Медиа" }
-         ListElement { type: "Переговорная"; name: "Климат" }
-         ListElement { type: "Переговорная"; name: "Шторы" }
-         ListElement { type: "Склад"; name: "Свет" }
-         ListElement { type: "Склад"; name: "Медиа" }
-         ListElement { type: "Склад"; name: "Шторы" }
+         ListElement { type: "Переговорная"; name: "Свет"; description: "light"; logo: "" }
+         ListElement { type: "Переговорная"; name: "Медиа"; logo: "" }
+         ListElement { type: "Переговорная"; name: "Климат"; logo: "" }
+         ListElement { type: "Переговорная"; name: "Шторы"; logo: "" }
+         ListElement { type: "Склад"; name: "Свет"; logo: "" }
+         ListElement { type: "Склад"; name: "Медиа"; logo: "" }
+         ListElement { type: "Склад"; name: "Шторы"; logo: "" }
        }
 
         delegate: SwipeOptionsContainer {
@@ -26,6 +26,7 @@ App {
           id: listItem
             text: name
             onSelected: console.log("Clicked Item #"+index)
+            iconSource: logo
 //            detailText: description
           }
 
