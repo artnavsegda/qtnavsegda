@@ -3,32 +3,25 @@ import QtQuick 2.11
 
 App {
   NavigationStack {
-
     Page {
-      title: "Swipe-able List"
+      title: "Basic List Example"
 
-      AppListView {
-        anchors.fill: parent
-        model: [
-          {
-            text: "Apple",
-            detailText: "A delicious fruit with round shape",
-            icon: IconType.apple
-          },
-
-          {
-            text: "Beer",
-            detailText: "A delicous drink",
-            icon: IconType.beer
-          }
-        ]
+     AppListView {
+       model: ListModel {
+         ListElement { type: "Fruits"; name: "Banana" }
+         ListElement { type: "Fruits"; name: "Apple" }
+         ListElement { type: "Vegetables"; name: "Potato" }
+       }
 
         delegate: SwipeOptionsContainer {
           id: container
 
           // the swipe container uses the height of the list item
           height: listItem.height
-          SimpleRow { id: listItem }
+          SimpleRow {
+          id: listItem
+            text: name
+          }
 
           // set an item that shows when swiping to the right
           leftOption: SwipeButton {
@@ -63,8 +56,9 @@ App {
           }
         }
 
-      } // AppListView
+       section.property: "type"
+       section.delegate: SimpleSection { }
+     }
     }
-
   }
 }
