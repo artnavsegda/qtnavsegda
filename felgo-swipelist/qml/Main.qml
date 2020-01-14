@@ -112,6 +112,11 @@ App {
             ]//шторы склад
         ]
 
+        Timer {
+            id: timer
+            interval: 300; running: false; repeat: false
+            onTriggered: page.dataModelChanged()
+        }
 
         WebSocket {
             id: socket
@@ -200,28 +205,17 @@ App {
                     {
                     case 1:
                         dataModel[6][0].level = value;
-                        if (value == 0)
-                          dataModel[6][0].power = false;
-                        else
-                          dataModel[6][0].power = true;
                     break;
                     case 2:
                         dataModel[6][1].level = value;
-                        if (value == 0)
-                          dataModel[6][1].power = false;
-                        else
-                          dataModel[6][1].power = true;
                     break;
                     case 3:
                         dataModel[3][0].level = value;
-                        if (value == 0)
-                          dataModel[3][0].power = false;
-                        else
-                          dataModel[3][0].power = true;
                     break;
                     }
                 }
-                page.dataModelChanged();
+                //page.dataModelChanged();
+                timer.start();
 
             }
             onStatusChanged: if (socket.status == WebSocket.Error) {
@@ -310,7 +304,21 @@ App {
               anchors.verticalCenter: parent.verticalCenter
               AppSwitch {
                 anchors.horizontalCenter: parent.horizontalCenter
-                checked: modelData.power;
+                checked: {
+                    switch(modelData.type) {
+                      case "lamp":
+                        return modelData.power;
+                        break;
+                      case "shades":
+                        if (modelData.level == 0)
+                          return false;
+                        else if (modelData.level == 65535)
+                          return true;
+                        break;
+                      default:
+                        break;
+                    }
+                }
                 updateChecked: true;
                 onToggled: {
                     //socket.sendTextMessage("Hello World");
@@ -325,12 +333,10 @@ App {
                         console.log("toggle shades");
                         if (checked)
                         {
-                          //slider.value = 65535;
                           socket.sendTextMessage("LEVEL[" + modelData.channel + ",65535]");
                         }
                         else
                         {
-                          //slider.value = 0;
                           socket.sendTextMessage("LEVEL[" + modelData.channel + ",0]");
                         }
                         break;
@@ -348,7 +354,7 @@ App {
                 toggle: true
 
                 onToggled: {
-                  console.debug("Button toggled")
+                  setTimeout(console.debug("Button toggled"),1000);
                   //myListView.model = page.dataModel2;
                   //page.room = 1;
                   console.log(page.dataModel[0][0].name);
