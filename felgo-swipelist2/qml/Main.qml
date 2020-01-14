@@ -21,9 +21,9 @@ App {
 
         // the model will usually come from a web server, copy it here for faster development & testing
         model: [
-          {name: "Споты", logo: IconType.camera},
-          {name: "Ленты", logo: IconType.android},
-          {name: "Потолок", logo: IconType.apple}
+          {name: "Споты", logo: IconType.camera, slider: true},
+          {name: "Ленты", logo: IconType.android, slider: true},
+          {name: "Потолок", logo: IconType.apple, slider: false}
         ]
 
         delegate: Row {
@@ -50,6 +50,7 @@ App {
               id: slider
               width: myListView.widthDay
               anchors.horizontalCenter: parent.horizontalCenter
+              visible: modelData.slider
             }
           }
 
