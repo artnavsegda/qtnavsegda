@@ -90,16 +90,23 @@ App {
 
         property var dataModel: [
             [
-              {name: "Споты", logo: IconType.camera, slider: true},
-              {name: "Ленты", logo: IconType.android, slider: true},
+//              {name: "Споты", logo: IconType.camera, slider: true},
+//              {name: "Ленты", logo: IconType.android, slider: true},
               {name: "Потолок 1", logo: IconType.apple, slider: false, channel: 1},
               {name: "Потолок 2", logo: IconType.apple, slider: false, channel: 2}
-            ],
+            ],//свет переговорная
+            [],//медиа переговорная
+            [],//климат переговорная
+            [],//шторы переговорная
             [
-              {name: "Споты", logo: IconType.camera, slider: true},
-              {name: "Ленты", logo: IconType.android, slider: true},
+//              {name: "Споты", logo: IconType.camera, slider: true},
+//              {name: "Ленты", logo: IconType.android, slider: true},
+              {name: "Потолок 1", logo: IconType.apple, slider: false, channel: 1},
+              {name: "Потолок 2", logo: IconType.apple, slider: false, channel: 2},
               {name: "Потолок 3", logo: IconType.apple, slider: false, channel: 3}
-            ]
+            ],//свет склад
+            [],//медиа склад
+            []//шторы склад
         ]
 
 
