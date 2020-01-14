@@ -13,7 +13,7 @@ App {
 
         // UI properties
         property real widthIcon: dp(40)
-        property real widthDay: dp(90)
+        property real widthDay: dp(250)
         property real widthTempMaxMin: dp(60)
         property real widthRain: dp(40)
         property real itemRowSpacing: dp(20)
@@ -21,9 +21,9 @@ App {
 
         // the model will usually come from a web server, copy it here for faster development & testing
         model: [
-          {day: "Споты",    tempMax: 21, tempMin: 15, rainProbability: 0.8, rainAmount: 3.153, logo: IconType.camera},
-          {day: "Ленты",   tempMax: 24, tempMin: 15, rainProbability: 0.2, rainAmount: 0.13},
-          {day: "Потолок", tempMax: 26, tempMin: 16, rainProbability: 0.01, rainAmount: 0.21}
+          {day: "Споты", logo: IconType.camera},
+          {day: "Ленты", logo: IconType.android},
+          {day: "Потолок", logo: IconType.apple}
         ]
 
         delegate: Row {
@@ -69,8 +69,25 @@ App {
 //            }
 //          }
 
-          AppSwitch {
+          Column {
+            width: myListView.widthRain
             anchors.verticalCenter: parent.verticalCenter
+            AppSwitch {
+              anchors.horizontalCenter: parent.horizontalCenter
+            }
+            IconButton {
+              // Icon in default state
+              icon: IconType.hearto
+              // Icon in selected state
+              selectedIcon: IconType.heart
+
+              toggle: true
+
+              onToggled: {
+                console.debug("Button toggled")
+              }
+              anchors.horizontalCenter: parent.horizontalCenter
+            }
           }
 
         }// dailyWeatherDelegate
