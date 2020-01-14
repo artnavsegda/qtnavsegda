@@ -107,8 +107,8 @@ App {
             ],//свет склад
             [],//медиа склад
             [
-              {name: "Левая штора", logo: IconType.ambulance, type: "shades", channel: 4},
-              {name: "Правая штора", logo: IconType.dashcube, type: "shades", channel: 5}
+              {name: "Левая штора", logo: IconType.ambulance, type: "shades", channel: 4, level: 0},
+              {name: "Правая штора", logo: IconType.dashcube, type: "shades", channel: 5, level: 0}
             ]//шторы склад
         ]
 
@@ -190,6 +190,13 @@ App {
                 width: myListView.widthDay
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: modelData.type === "shades"
+                from: 0
+                to: 65535
+                stepSize: 1
+                value: modelData.level
+                onMoved: {
+                  console.log("moved");
+                }
               }
             }
 
@@ -199,10 +206,25 @@ App {
               AppSwitch {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onToggled: {
-                    console.log("Sending message: Hello World");
                     //socket.sendTextMessage("Hello World");
-                    socket.sendTextMessage("PUSH[" + modelData.channel + "]");
-                    socket.sendTextMessage("RELEASE[" + modelData.channel + "]");
+
+                    switch(modelData.type) {
+                      case "lamp":
+                        console.log("toggle lamp");
+                        socket.sendTextMessage("PUSH[" + modelData.channel + "]");
+                        socket.sendTextMessage("RELEASE[" + modelData.channel + "]");
+                        break;
+                      case "shades":
+                        console.log("toggle shades");
+                        if (checked)
+                          slider.value = 65535;
+                        else
+                          slider.value = 0;
+                        // code block
+                        break;
+                      default:
+                        // code block
+                    }
                 }
               }
               IconButton {
