@@ -86,6 +86,13 @@ App {
         id: page
         title: "Change Count"
 
+        property var dataModel: [
+          {name: "Споты", logo: IconType.camera, slider: true},
+          {name: "Ленты", logo: IconType.android, slider: true},
+          {name: "Потолок 1", logo: IconType.apple, slider: false, channel: 1},
+          {name: "Потолок 2", logo: IconType.apple, slider: false, channel: 2}
+        ]
+
         WebSocket {
             id: socket
             url: "ws://192.168.88.20:8080"
@@ -136,12 +143,7 @@ App {
           spacing: dp(5) // vertical spacing between list items/rows/delegates
 
           // the model will usually come from a web server, copy it here for faster development & testing
-          model: [
-            {name: "Споты", logo: IconType.camera, slider: true},
-            {name: "Ленты", logo: IconType.android, slider: true},
-            {name: "Потолок 1", logo: IconType.apple, slider: false, channel: 1},
-            {name: "Потолок 2", logo: IconType.apple, slider: false, channel: 2}
-          ]
+          model: page.dataModel
 
           delegate: Row {
             id: dailyWeatherDelegate
