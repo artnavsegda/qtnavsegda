@@ -21,13 +21,9 @@ App {
 
         // the model will usually come from a web server, copy it here for faster development & testing
         model: [
-          {day: "Monday",    tempMax: 21, tempMin: 15, rainProbability: 0.8, rainAmount: 3.153, logo: IconType.camera},
-          {day: "Tuesday",   tempMax: 24, tempMin: 15, rainProbability: 0.2, rainAmount: 0.13},
-          {day: "Wednesday", tempMax: 26, tempMin: 16, rainProbability: 0.01, rainAmount: 0.21},
-          {day: "Thursday",  tempMax: 32, tempMin: 21, rainProbability: 0, rainAmount: 0},
-          {day: "Friday",    tempMax: 28, tempMin: 20, rainProbability: 0, rainAmount: 0},
-          {day: "Saturday",  tempMax: 26, tempMin: 19, rainProbability: 0, rainAmount: 0},
-          {day: "Sunday",    tempMax: 25, tempMin: 19, rainProbability: 0, rainAmount: 0}
+          {day: "Споты",    tempMax: 21, tempMin: 15, rainProbability: 0.8, rainAmount: 3.153, logo: IconType.camera},
+          {day: "Ленты",   tempMax: 24, tempMin: 15, rainProbability: 0.2, rainAmount: 0.13},
+          {day: "Потолок", tempMax: 26, tempMin: 16, rainProbability: 0.01, rainAmount: 0.21}
         ]
 
         delegate: Row {
@@ -41,15 +37,16 @@ App {
           }
 
           AppText {
-            // if it is the first entry, display "Today", if it is the second, display "Tomorrow"
-            // otherwise display the day property from the model
-            text: index === 0 ? "Today" :
-                  index === 1 ? "Tomorrow" :
-                  modelData.day
+            text: modelData.day
 
             // make all days the same width
             width: myListView.widthDay
             anchors.verticalCenter: parent.verticalCenter
+          }
+
+          AppSlider {
+            width: myListView.widthDay
+            id: slider
           }
 
           AppText {
