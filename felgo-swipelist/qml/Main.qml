@@ -92,7 +92,7 @@ App {
             [
 //              {name: "Споты", logo: IconType.camera, slider: true},
 //              {name: "Ленты", logo: IconType.android, slider: true},
-              {name: "Потолок", logo: IconType.apple, type: "lamp", channel: 3}
+              {name: "Потолок", logo: IconType.apple, type: "lamp", channel: 3, level: 0}
             ],//свет переговорная
             [],//медиа переговорная
             [],//климат переговорная
@@ -102,8 +102,8 @@ App {
             [
 //              {name: "Споты", logo: IconType.camera, slider: true},
 //              {name: "Ленты", logo: IconType.android, slider: true},
-              {name: "Потолок 1", logo: IconType.camera, type: "lamp", channel: 1},
-              {name: "Потолок 2", logo: IconType.android, type: "lamp", channel: 2}
+              {name: "Потолок 1", logo: IconType.camera, type: "lamp", channel: 1, level: 0},
+              {name: "Потолок 2", logo: IconType.android, type: "lamp", channel: 2, level: 0}
             ],//свет склад
             [],//медиа склад
             [
