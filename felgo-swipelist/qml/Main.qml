@@ -34,7 +34,7 @@ App {
             text: name
             onSelected: {
                 console.log("Clicked Item #"+index)
-                mainPage.navigationStack.push(counterPageComponent)
+                mainPage.navigationStack.push(counterPageComponent, { room: index })
             }
             iconSource: logo
 //            detailText: description
