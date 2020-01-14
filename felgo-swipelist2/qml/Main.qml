@@ -21,7 +21,7 @@ App {
 
         // the model will usually come from a web server, copy it here for faster development & testing
         model: [
-          {day: "Monday",    tempMax: 21, tempMin: 15, rainProbability: 0.8, rainAmount: 3.153},
+          {day: "Monday",    tempMax: 21, tempMin: 15, rainProbability: 0.8, rainAmount: 3.153, logo: IconType.camera},
           {day: "Tuesday",   tempMax: 24, tempMin: 15, rainProbability: 0.2, rainAmount: 0.13},
           {day: "Wednesday", tempMax: 26, tempMin: 16, rainProbability: 0.01, rainAmount: 0.21},
           {day: "Thursday",  tempMax: 32, tempMin: 21, rainProbability: 0, rainAmount: 0},
@@ -36,7 +36,8 @@ App {
 
           Icon {
             width: myListView.widthIcon
-            icon: IconType.camera
+            anchors.verticalCenter: parent.verticalCenter
+            icon: modelData.logo
           }
 
           AppText {
