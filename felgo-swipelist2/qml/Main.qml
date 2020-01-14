@@ -12,8 +12,8 @@ App {
         id: myListView
 
         // UI properties
-        x: dp(10) // left margin
-        y: dp(10) // top margin
+        //x: dp(10) // left margin
+        //y: dp(10) // top margin
         property real widthDay: dp(90)
         property real widthTempMaxMin: dp(60)
         property real widthRain: dp(40)
