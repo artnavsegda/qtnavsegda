@@ -12,8 +12,7 @@ App {
         id: myListView
 
         // UI properties
-        //x: dp(10) // left margin
-        //y: dp(10) // top margin
+        property real widthIcon: dp(60)
         property real widthDay: dp(90)
         property real widthTempMaxMin: dp(60)
         property real widthRain: dp(40)
@@ -36,7 +35,7 @@ App {
           spacing: myListView.itemRowSpacing
 
           Icon {
-            width: myListView.widthDay
+            width: myListView.widthIcon
             icon: IconType.camera
           }
 
