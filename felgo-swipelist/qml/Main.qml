@@ -86,12 +86,22 @@ App {
         id: page
         title: "Change Count"
 
+        property int room: 0
+
         property var dataModel: [
-          {name: "Споты", logo: IconType.camera, slider: true},
-          {name: "Ленты", logo: IconType.android, slider: true},
-          {name: "Потолок 1", logo: IconType.apple, slider: false, channel: 1},
-          {name: "Потолок 2", logo: IconType.apple, slider: false, channel: 2}
+            [
+              {name: "Споты", logo: IconType.camera, slider: true},
+              {name: "Ленты", logo: IconType.android, slider: true},
+              {name: "Потолок 1", logo: IconType.apple, slider: false, channel: 1},
+              {name: "Потолок 2", logo: IconType.apple, slider: false, channel: 2}
+            ],
+            [
+              {name: "Споты", logo: IconType.camera, slider: true},
+              {name: "Ленты", logo: IconType.android, slider: true},
+              {name: "Потолок 3", logo: IconType.apple, slider: false, channel: 3}
+            ]
         ]
+
 
         WebSocket {
             id: socket
@@ -143,7 +153,7 @@ App {
           spacing: dp(5) // vertical spacing between list items/rows/delegates
 
           // the model will usually come from a web server, copy it here for faster development & testing
-          model: page.dataModel
+          model: page.dataModel[room]
 
           delegate: Row {
             id: dailyWeatherDelegate
@@ -195,6 +205,8 @@ App {
 
                 onToggled: {
                   console.debug("Button toggled")
+                  //myListView.model = page.dataModel2;
+                  page.room = 1;
                 }
                 anchors.horizontalCenter: parent.horizontalCenter
               }
