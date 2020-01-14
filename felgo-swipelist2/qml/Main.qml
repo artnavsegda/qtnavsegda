@@ -12,7 +12,7 @@ App {
         id: myListView
 
         // UI properties
-        property real widthIcon: dp(60)
+        property real widthIcon: dp(40)
         property real widthDay: dp(90)
         property real widthTempMaxMin: dp(60)
         property real widthRain: dp(40)
@@ -36,41 +36,38 @@ App {
             icon: modelData.logo
           }
 
-          AppText {
-            text: modelData.day
-
-            // make all days the same width
-            width: myListView.widthDay
-            anchors.verticalCenter: parent.verticalCenter
-          }
-
-          AppSlider {
-            width: myListView.widthDay
-            id: slider
-          }
-
-          AppText {
-            text: modelData.tempMax + "°/" + modelData.tempMin + "°"
-            horizontalAlignment: Text.AlignHCenter
-            width: myListView.widthTempMaxMin
-            anchors.verticalCenter: parent.verticalCenter
-          }
-
           Column {
-            width: myListView.widthRain
+            width: myListView.widthDay
             anchors.verticalCenter: parent.verticalCenter
             AppText {
-              text: Math.round(modelData.rainAmount*10)/10 + "l" // round to 1 decimal
-              fontSize: 18
+              text: modelData.day
+//              horizontalAlignment: Text.AlignHCenter
+//              horizontalAlignment: Text.AlignLeft
+              width: myListView.widthDay
               anchors.horizontalCenter: parent.horizontalCenter
             }
-            AppText {
-              id: precipProbability
-              text: Math.round(modelData.rainProbability * 1000)/10 + "%" // round percent to 1 decimal
-              fontSize: 12
+            AppSlider {
+              id: slider
+              width: myListView.widthDay
               anchors.horizontalCenter: parent.horizontalCenter
             }
           }
+
+//          Column {
+//            width: myListView.widthRain
+//            anchors.verticalCenter: parent.verticalCenter
+//            AppText {
+//              text: Math.round(modelData.rainAmount*10)/10 + "l" // round to 1 decimal
+//              fontSize: 18
+//              anchors.horizontalCenter: parent.horizontalCenter
+//            }
+//            AppText {
+//              id: precipProbability
+//              text: Math.round(modelData.rainProbability * 1000)/10 + "%" // round percent to 1 decimal
+//              fontSize: 12
+//              anchors.horizontalCenter: parent.horizontalCenter
+//            }
+//          }
 
           AppSwitch {
             anchors.verticalCenter: parent.verticalCenter
