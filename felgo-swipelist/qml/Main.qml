@@ -92,7 +92,7 @@ App {
             [
 //              {name: "Споты", logo: IconType.camera, slider: true},
 //              {name: "Ленты", logo: IconType.android, slider: true},
-              {name: "Потолок", logo: IconType.apple, slider: false, channel: 3}
+              {name: "Потолок", logo: IconType.apple, type: "lamp", channel: 3}
             ],//свет переговорная
             [],//медиа переговорная
             [],//климат переговорная
@@ -100,11 +100,14 @@ App {
             [
 //              {name: "Споты", logo: IconType.camera, slider: true},
 //              {name: "Ленты", logo: IconType.android, slider: true},
-              {name: "Потолок 1", logo: IconType.camera, slider: false, channel: 1},
-              {name: "Потолок 2", logo: IconType.apple, slider: false, channel: 2}
+              {name: "Потолок 1", logo: IconType.camera, type: "lamp", channel: 1},
+              {name: "Потолок 2", logo: IconType.android, type: "lamp", channel: 2}
             ],//свет склад
             [],//медиа склад
-            []//шторы склад
+            [
+              {name: "Левая штора", logo: IconType.ambulance, type: "shades", channel: 4},
+              {name: "Правая штора", logo: IconType.dashcube, type: "shades", channel: 5}
+            ]//шторы склад
         ]
 
 
@@ -184,7 +187,7 @@ App {
                 id: slider
                 width: myListView.widthDay
                 anchors.horizontalCenter: parent.horizontalCenter
-                visible: modelData.slider
+                visible: modelData.type == "shades"
               }
             }
 
