@@ -97,7 +97,7 @@ App {
             [],//медиа переговорная
             [],//климат переговорная
             [
-              {name: "Жалюзи", logo: IconType.dashcube, type: "shades", channel: 5}
+              {name: "Жалюзи", logo: IconType.dashcube, type: "shades", channel: 3, level: 0}
             ],//шторы переговорная
             [
 //              {name: "Споты", logo: IconType.camera, slider: true},
@@ -107,8 +107,8 @@ App {
             ],//свет склад
             [],//медиа склад
             [
-              {name: "Левая штора", logo: IconType.ambulance, type: "shades", channel: 4, level: 0},
-              {name: "Правая штора", logo: IconType.dashcube, type: "shades", channel: 5, level: 0}
+              {name: "Левая штора", logo: IconType.ambulance, type: "shades", channel: 1, level: 0},
+              {name: "Правая штора", logo: IconType.dashcube, type: "shades", channel: 2, level: 0}
             ]//шторы склад
         ]
 
@@ -196,6 +196,7 @@ App {
                 value: modelData.level
                 onMoved: {
                   console.log("moved");
+                  socket.sendTextMessage("LEVEL[" + modelData.channel + "," + value + "]");
                 }
               }
             }
@@ -217,10 +218,15 @@ App {
                       case "shades":
                         console.log("toggle shades");
                         if (checked)
-                          slider.value = 65535;
+                        {
+                          //slider.value = 65535;
+                          socket.sendTextMessage("LEVEL[" + modelData.channel + ",65535]");
+                        }
                         else
-                          slider.value = 0;
-                        // code block
+                        {
+                          //slider.value = 0;
+                          socket.sendTextMessage("LEVEL[" + modelData.channel + ",0]");
+                        }
                         break;
                       default:
                         // code block
@@ -238,7 +244,7 @@ App {
                 onToggled: {
                   console.debug("Button toggled")
                   //myListView.model = page.dataModel2;
-                  page.room = 1;
+                  //page.room = 1;
                 }
                 anchors.horizontalCenter: parent.horizontalCenter
               }
