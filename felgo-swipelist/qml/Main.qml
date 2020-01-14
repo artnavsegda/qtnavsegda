@@ -96,7 +96,9 @@ App {
             ],//свет переговорная
             [],//медиа переговорная
             [],//климат переговорная
-            [],//шторы переговорная
+            [
+              {name: "Жалюзи", logo: IconType.dashcube, type: "shades", channel: 5}
+            ],//шторы переговорная
             [
 //              {name: "Споты", logo: IconType.camera, slider: true},
 //              {name: "Ленты", logo: IconType.android, slider: true},
@@ -187,7 +189,7 @@ App {
                 id: slider
                 width: myListView.widthDay
                 anchors.horizontalCenter: parent.horizontalCenter
-                visible: modelData.type == "shades"
+                visible: modelData.type === "shades"
               }
             }
 
