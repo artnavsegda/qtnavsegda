@@ -21,9 +21,9 @@ App {
 
         // the model will usually come from a web server, copy it here for faster development & testing
         model: [
-          {day: "Споты", logo: IconType.camera},
-          {day: "Ленты", logo: IconType.android},
-          {day: "Потолок", logo: IconType.apple}
+          {name: "Споты", logo: IconType.camera},
+          {name: "Ленты", logo: IconType.android},
+          {name: "Потолок", logo: IconType.apple}
         ]
 
         delegate: Row {
@@ -40,7 +40,7 @@ App {
             width: myListView.widthDay
             anchors.verticalCenter: parent.verticalCenter
             AppText {
-              text: modelData.day
+              text: modelData.name
 //              horizontalAlignment: Text.AlignHCenter
 //              horizontalAlignment: Text.AlignLeft
               width: myListView.widthDay
