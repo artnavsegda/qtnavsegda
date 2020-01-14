@@ -92,23 +92,23 @@ App {
             [
 //              {name: "Споты", logo: IconType.camera, slider: true},
 //              {name: "Ленты", logo: IconType.android, slider: true},
-              {name: "Потолок", logo: IconType.apple, type: "lamp", channel: 3, level: 0}
+              {name: "Потолок", logo: IconType.apple, type: "lamp", channel: 3, level: 0, power: true}
             ],//свет переговорная
             [],//медиа переговорная
             [],//климат переговорная
             [
-              {name: "Жалюзи", logo: IconType.dashcube, type: "shades", channel: 3, level: 0}
+              {name: "Жалюзи", logo: IconType.dashcube, type: "shades", channel: 3, level: 0, power: false}
             ],//шторы переговорная
             [
 //              {name: "Споты", logo: IconType.camera, slider: true},
 //              {name: "Ленты", logo: IconType.android, slider: true},
-              {name: "Потолок 1", logo: IconType.camera, type: "lamp", channel: 1, level: 0},
-              {name: "Потолок 2", logo: IconType.android, type: "lamp", channel: 2, level: 0}
+              {name: "Потолок 1", logo: IconType.camera, type: "lamp", channel: 1, level: 0, power: false},
+              {name: "Потолок 2", logo: IconType.android, type: "lamp", channel: 2, level: 0, power: false}
             ],//свет склад
             [],//медиа склад
             [
-              {name: "Левая штора", logo: IconType.ambulance, type: "shades", channel: 1, level: 0},
-              {name: "Правая штора", logo: IconType.dashcube, type: "shades", channel: 2, level: 0}
+              {name: "Левая штора", logo: IconType.ambulance, type: "shades", channel: 1, level: 0, power: true},
+              {name: "Правая штора", logo: IconType.dashcube, type: "shades", channel: 2, level: 0, power: true}
             ]//шторы склад
         ]
 
@@ -118,7 +118,111 @@ App {
             url: "ws://192.168.88.20:8080"
             onTextMessageReceived: {
                 //messageBox.text = "Received message: " + message
-                console.log("Received message: " + message)
+                //console.log("Received message: " + message)
+
+                function getBoundString(msg, startChar, stopChar)
+                {
+                    var response = "";
+
+                    if (msg != null && msg.length > 0)
+                    {
+                        var start = msg.indexOf(startChar);
+
+                        if (start >= 0)
+                        {
+                            start += startChar.length;
+
+                            var end = msg.indexOf(stopChar, start);
+
+                            if (start < end)
+                            {
+                                response = msg.substring(start, end);
+                            }
+                        }
+                    }
+
+                    return response;
+                }
+
+                //ON[CHANNEL]
+                if (message.indexOf("ON[") == 0)
+                {
+                    var channel = parseInt(getBoundString(message, "ON[", "]"), 10);
+
+                    if (isNaN(channel) == false)
+                    {
+                        console.log("digital channel " + channel + " goes high state");
+                        switch (channel)
+                        {
+                        case 1:
+                            dataModel[4][0].power = true;
+                        break;
+                        case 2:
+                            dataModel[4][1].power = true;
+                        break;
+                        case 3:
+                            dataModel[0][0].power = true;
+                        break;
+                        }
+                    }
+                }
+                //OFF[CHANNEL]
+                else if (message.indexOf("OFF[") == 0)
+                {
+                    var channel = parseInt(getBoundString(message, "OFF[", "]"), 10);
+
+                    if (isNaN(channel) == false)
+                    {
+                        console.log("digital channel " + channel + " goes low state");
+                        switch (channel)
+                        {
+                        case 1:
+                            dataModel[4][0].power = false;
+                        break;
+                        case 2:
+                            dataModel[4][1].power = false;
+                        break;
+                        case 3:
+                            dataModel[0][0].power = false;
+                        break;
+                        }
+                    }
+                }
+                // LEVEL[LEVEL,VALUE]
+                else if (message.indexOf("LEVEL[") == 0)
+                {
+                    var channel = parseInt(getBoundString(message, "LEVEL[", ","), 10);
+                    var value = parseInt(getBoundString(message, ",", "]"), 10);
+
+                    console.log("analog channel " + channel + " goes " + value + " level");
+
+                    switch (channel)
+                    {
+                    case 1:
+                        dataModel[6][0].level = value;
+                        if (value == 0)
+                          dataModel[6][0].power = false;
+                        else
+                          dataModel[6][0].power = true;
+                    break;
+                    case 2:
+                        dataModel[6][1].level = value;
+                        if (value == 0)
+                          dataModel[6][1].power = false;
+                        else
+                          dataModel[6][1].power = true;
+                    break;
+                    case 3:
+                        dataModel[3][0].level = value;
+                        if (value == 0)
+                          dataModel[3][0].power = false;
+                        else
+                          dataModel[3][0].power = true;
+                    break;
+                    }
+                }
+                page.dataModelChanged();
+
             }
             onStatusChanged: if (socket.status == WebSocket.Error) {
                                  console.log("Error: " + socket.errorString)
@@ -206,6 +310,8 @@ App {
               anchors.verticalCenter: parent.verticalCenter
               AppSwitch {
                 anchors.horizontalCenter: parent.horizontalCenter
+                checked: modelData.power;
+                updateChecked: true;
                 onToggled: {
                     //socket.sendTextMessage("Hello World");
 
@@ -245,6 +351,8 @@ App {
                   console.debug("Button toggled")
                   //myListView.model = page.dataModel2;
                   //page.room = 1;
+                  console.log(page.dataModel[0][0].name);
+                  page.dataModelChanged();
                 }
                 anchors.horizontalCenter: parent.horizontalCenter
               }
