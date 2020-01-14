@@ -139,7 +139,8 @@ App {
           model: [
             {name: "Споты", logo: IconType.camera, slider: true},
             {name: "Ленты", logo: IconType.android, slider: true},
-            {name: "Потолок", logo: IconType.apple, slider: false}
+            {name: "Потолок 1", logo: IconType.apple, slider: false, channel: 1},
+            {name: "Потолок 2", logo: IconType.apple, slider: false, channel: 2}
           ]
 
           delegate: Row {
@@ -178,8 +179,8 @@ App {
                 onToggled: {
                     console.log("Sending message: Hello World");
                     //socket.sendTextMessage("Hello World");
-                    socket.sendTextMessage("PUSH[1]");
-                    socket.sendTextMessage("RELEASE[1]");
+                    socket.sendTextMessage("PUSH[" + modelData.channel + "]");
+                    socket.sendTextMessage("RELEASE[" + modelData.channel + "]");
                 }
               }
               IconButton {
