@@ -35,6 +35,11 @@ App {
           id: dailyWeatherDelegate
           spacing: myListView.itemRowSpacing
 
+          Icon {
+            width: myListView.widthDay
+            icon: IconType.camera
+          }
+
           AppText {
             // if it is the first entry, display "Today", if it is the second, display "Tomorrow"
             // otherwise display the day property from the model
